@@ -1,0 +1,21 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 90%;
+  }
+
+  .mat-form-field mat-label {
+    color: white;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+
+  .mat-button{
+    width: 1px;
+  }
+  

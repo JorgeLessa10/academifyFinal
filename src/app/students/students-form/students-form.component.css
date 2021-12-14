@@ -1,0 +1,13 @@
+.mat-form-field{
+    width: 100%;
+}
+
+.container{
+    background-color:#808080 ;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.mat-stroked-button{
+    margin: 0px 6px 6px 0px;
+}

@@ -1,0 +1,22 @@
+<div class="container">
+    <form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 30px">
+        <mat-form-field appearance="outline">
+            <mat-label>Matricula</mat-label>
+            <input matInput placeholder="Matricula" type="text" id="matricula" formControlName="matricula"
+                [ngClass]="{ 'is-invalid': submitted && hasErrors('matricula')}">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput placeholder="Nome" type="text" id="nome" formControlName="nome"
+                [ngClass]="{ 'is-invalid': submitted && hasErrors('nome')}">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Nascimento</mat-label>
+            <input matInput [matDatepicker]="picker" id="nascimento" formControlName="nascimento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button type="submit" class="action-form-button" mat-stroked-button color="primary" (click)="onSubmit()">Salvar</button>
+        <button type="submit" class="action-form-button" mat-stroked-button color="warn" (click)="onCancel()">Cancelar</button>
+    </form>
+</div>

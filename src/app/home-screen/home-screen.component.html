@@ -1,0 +1,27 @@
+<div class="container" style="margin-top: 20px;">
+    <mat-card class="home-card">
+        <mat-card-title>Alunos</mat-card-title>
+        <mat-card-subtitle>Alunos cadastrados no sistema</mat-card-subtitle>
+        <mat-card-content>
+            <p>Neste card você consegue visualizar a quantidade de alunos cadastrados
+                no sistema, e o botão abaixo te levará a uma lista contendo todos os
+                alunos cadastrados.
+            </p>
+            <p>Total de alunos cadastrados: {{totalStudents}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-stroked-button [routerLink]="['students']">Listar</button>
+        </mat-card-actions>
+    </mat-card>
+
+    <mat-card class="home-card" disabled="disabled">
+        <mat-card-title>Disciplinas</mat-card-title>
+        <mat-card-subtitle>Disciplinas cadastradas no sistema</mat-card-subtitle>
+        <mat-card-content>
+            <p style="color: red">O módulo  de Disciplinas esta em construção, temporariamente indisponível.</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-stroked-button disabled>Listar</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

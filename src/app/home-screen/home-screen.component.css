@@ -1,0 +1,10 @@
+.home-card {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .home-card[disabled="disabled"] {
+    pointer-events: none;
+    opacity: 70%;
+}
+  
