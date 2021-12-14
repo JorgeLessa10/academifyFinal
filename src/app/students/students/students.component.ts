@@ -86,8 +86,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(student: any){
-    let stud = {} as Student | undefined;
-    this.studentsService.removeStudents(stud).subscribe(
+    this.studentsService.removeStudents(student).subscribe(
       success =>  this.onRefresh(),
       //Não foi possivel tratar erro, pois nada é retornado do backend
       error => this.openSnackBar(error.error),
