@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AlertComponent } from 'src/app/alert/alert.component';
 import { StudentsService } from '../services/students.service';
 
 @Component({
@@ -16,7 +18,17 @@ export class StudentsFormComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private service: StudentsService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar) { }
+
+  openSnackBar(errorMessage: string) {
+    this._snackBar.openFromComponent(AlertComponent, {
+      duration: 5000,
+      data: {
+        message: errorMessage
+      }
+    });
+  }
 
   ngOnInit(): void {
 
@@ -51,24 +63,24 @@ export class StudentsFormComponent implements OnInit {
     })
   }
 
-  hasErrors(field: string) {
-    this.form.get(field)?.errors;
-  }
-
   onSubmit() {
     this.submitted = true;
     if (this.form.valid) {
       this.service.addStudents(this.form.value).subscribe(
         success => this.router.navigate(['../../students']),
-        error => console.log(error),
+        error => this.openSnackBar(error.error),
         () => console.log('Request complete')
       );
     }
   }
 
   onCancel() {
-    this.submitted = false;
-    this.form.reset();
+    if (this.form.value.nome || this.form.value.matricula || this.form.value.nascimento) {
+      this.submitted = false;
+      this.form.reset();
+    } else {
+      this.router.navigate(['../../students'])
+    }
   }
 
 }

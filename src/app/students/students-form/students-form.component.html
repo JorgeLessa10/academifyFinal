@@ -2,13 +2,11 @@
     <form class="needs-validation" novalidate [formGroup]="form" style="padding-top: 30px">
         <mat-form-field appearance="outline">
             <mat-label>Matricula</mat-label>
-            <input matInput placeholder="Matricula" type="text" id="matricula" formControlName="matricula"
-                [ngClass]="{ 'is-invalid': submitted && hasErrors('matricula')}">
+            <input matInput placeholder="Matricula" type="text" id="matricula" formControlName="matricula">
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Nome</mat-label>
-            <input matInput placeholder="Nome" type="text" id="nome" formControlName="nome"
-                [ngClass]="{ 'is-invalid': submitted && hasErrors('nome')}">
+            <input matInput placeholder="Nome" type="text" id="nome" formControlName="nome">
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Nascimento</mat-label>

@@ -8,6 +8,8 @@ import { Student } from '../model/student';
 import { StudentsService } from '../services/students.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StudentModalComponent } from '../student-modal/student-modal.component';
+import { AlertComponent } from 'src/app/alert/alert.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -27,7 +29,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   constructor(private studentsService: StudentsService, 
     private router: Router, 
     private route: ActivatedRoute,
-    private dialog: MatDialog) { 
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar) { 
   }
   ngAfterViewInit(): void {
     this.studentsDataSource.paginator = this.paginator;
@@ -37,6 +40,15 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getStudents();
     this.studentsDataSource.data = this.students;
+  }
+
+  openSnackBar(alertMessage: string) {    
+    this._snackBar.openFromComponent(AlertComponent, {
+      duration: 2000,
+      data: {
+        message: alertMessage
+      }
+    });
   }
 
   applyFilter(event: Event) {
@@ -63,8 +75,10 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   onRefresh() {
+    const alertMessage = 'Aluno removido com sucesso';
     this.students = []; 
     this.getStudents();
+    this.openSnackBar(alertMessage);
   }
 
   onEdit(id:number){
@@ -72,21 +86,27 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   onDelete(student: any){
-    this.studentsService.removeStudents(student).subscribe(
+    let stud = {} as Student | undefined;
+    this.studentsService.removeStudents(stud).subscribe(
       success =>  this.onRefresh(),
-      error => console.log(error),
+      //Não foi possivel tratar erro, pois nada é retornado do backend
+      error => this.openSnackBar(error.error),
       () => console.log('Request complete')
     );      
   }
 
   openDialog(id: string) {
     let stdt = {} as Student | undefined;
-    stdt = this.students.find(st => st.id === id);    
+    stdt = this.students.find(st => st.id === id); 
+    console.log(stdt?.birthDate);
+     
+    console.log(stdt?.birthDate ? new Date(stdt?.birthDate).getMonth().toString(): 'teste');
+      
     this.dialog.open(StudentModalComponent, {
       data: {
         name: stdt?.name,
         enrollment: stdt?.enrollment,
-        birthDate: stdt?.birthDate ? new Date(stdt?.birthDate).toLocaleString('pt-BR') : stdt?.birthDate,
+        birthDate: stdt?.birthDate ? new Date(stdt?.birthDate).getDate().toString() + '/' + (new Date(stdt?.birthDate).getMonth()+1).toString() + '/' + new Date(stdt?.birthDate).getFullYear().toString() : stdt?.birthDate,
         registrationDate: stdt?.registrationDate  ? new Date(stdt?.registrationDate).toLocaleString('pt-BR') : stdt?.registrationDate
       }      
     });

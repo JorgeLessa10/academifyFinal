@@ -9,12 +9,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
 import { HomeScreenComponent } from './home-screen/home-screen.component';
 import {  MatButtonModule } from '@angular/material/button';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopoComponent,
-    HomeScreenComponent
+    HomeScreenComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
